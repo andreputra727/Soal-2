@@ -1,0 +1,56 @@
+public class BarangLelang {
+    protected String namaBarang;
+    protected double hargaAwal;
+    protected double penawaranTertinggi;
+    protected Peserta pemenang;
+    protected boolean statusLelang;
+
+    public BarangLelang(String namaBarang, double hargaAwal) {
+        this.namaBarang = namaBarang;
+        this.hargaAwal = hargaAwal;
+        this.penawaranTertinggi = 0;
+        this.pemenang = null;
+        this.statusLelang = false;
+    }
+
+    public void mulaiLelang() {
+        statusLelang = true;
+        System.out.println("Lelang untuk " + namaBarang + " telah dimulai");
+        System.out.println("dengan harga awal Rp" + hargaAwal);
+    }
+
+    public void terimaPenawaran(Peserta peserta, double jumlah) {
+        if (!statusLelang) {
+            System.out.println("Penawaran tidak valid! Lelang sudah ditutup");
+            return;
+        }
+
+        if (jumlah <= penawaranTertinggi || jumlah < hargaAwal) {
+            System.out.println(peserta.getNama() + " menawar Rp" + jumlah);
+            System.out.println("Penawaran tidak valid! penawaran harus lebih tinggi dari Rp" + Math.max(hargaAwal, penawaranTertinggi));
+            return;
+        }
+
+        if (peserta.getSaldo() < jumlah) {
+            System.out.println(peserta.getNama() + " menawar Rp" + jumlah);
+            System.out.println("Penawaran tidak valid! Saldo " + peserta.getNama() + " tidak mencukupi");
+            return;
+        }
+
+        System.out.println(peserta.getNama() + " menawar Rp" + jumlah);
+        System.out.println("Penawaran disetujui!");
+        penawaranTertinggi = jumlah;
+        pemenang = peserta;
+    }
+
+    public void tutupLelang() {
+        statusLelang = false;
+        if (pemenang != null) {
+            pemenang.setSaldo(pemenang.getSaldo() - penawaranTertinggi);
+            System.out.println("Lelang ditutup! " + namaBarang + " terjual dengan harga " + penawaranTertinggi + " kepada " + pemenang.getNama());
+            System.out.println("Sisa saldo " + pemenang.getNama() + ": Rp" + pemenang.getSaldo());
+        } else {
+            System.out.println("Lelang ditutup! Tidak ada pemenang.");
+        }
+    }
+}
