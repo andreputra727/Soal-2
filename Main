@@ -1,0 +1,42 @@
+public class SistemLelang {
+    public static void main(String[] args) {
+        Elektronik laptop = new Elektronik("Laptop ASUS ROG", 10000000, 2);
+        Seni lukisan = new Seni("Lukisan Abstrak", 5000000, "Seniman Lokal");
+
+        Peserta[] peserta = {
+            new Peserta("Andi", 9000000),
+            new Peserta("Budi", 25000000),
+            new Peserta("Iwan", 30000000),
+            new Peserta("Dina", 10000000),
+            new Peserta("Eka", 5000000)
+        };
+
+        System.out.println("\n==============================");
+        System.out.println("    LELANG BARANG ELEKTRONIK");
+        System.out.println("==============================");
+        laptop.mulaiLelang();
+
+        peserta[0].tawar(laptop, 8000000);
+        peserta[1].tawar(laptop, 12000000);
+        peserta[2].tawar(laptop, 15000000);
+        peserta[1].tawar(laptop, 16000000);
+        peserta[3].tawar(laptop, 17000000);
+        peserta[4].tawar(laptop, 18000000);
+
+        laptop.tutupLelang();
+
+        System.out.println("\n===========================");
+        System.out.println("      LELANG KARYA SENI");
+        System.out.println("===========================");
+        lukisan.mulaiLelang();
+
+        peserta[4].tawar(lukisan, 4000000);
+        peserta[0].tawar(lukisan, 5000000);
+        peserta[1].tawar(lukisan, 6000000);
+        peserta[2].tawar(lukisan, 7000000);
+
+        lukisan.tutupLelang();
+
+        peserta[3].tawar(lukisan, 8000000);
+    }
+}
